@@ -57,6 +57,7 @@ const page = () => {
     }
 
     return (
+        
         <div className="w-screen h-screen relative ">
             <Image src={login} width={500} height={500} alt='This is food image' className='w-full h-full absolute' />
             <div className='relative bg-black/70 w-full h-full flex justify-center items-center '>
