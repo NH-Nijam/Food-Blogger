@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container{
+  @apply max-w-[1440px] mx-auto px-3;
+}
+.header{
+  @apply font-semibold text-gray-600 text-xs
+}
+
+@layer utilities {
+  .nav{
+    @apply relative font-semibold tracking-[1px] 
+     hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-blue-600 to-pink-500 duration-500
+  }
+  .nav::after{
+    @apply content-[''] bg-gradient-to-r from-blue-600 to-pink-500 absolute h-[3px] w-[0%] left-0 -bottom-[10px] rounded-full duration-500
+  }
+  .nav:hover::after{
+    @apply w-[100%]
+  }
+   
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@layer utilities {
+  .animate-gradient {
+    animation: gradientAnimation 10s linear infinite;
+  }
+}
