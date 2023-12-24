@@ -9,7 +9,7 @@ import { FaLock } from "react-icons/fa";
 
 const page = () => {
     const handlers = useContext(handlerContext)
-    const { googleSigninHandler, FacebookSigninHandler, GithubSigninHandler } = handlers;
+    const { googleSigninHandler, FacebookSigninHandler, GithubSigninHandler, onSubmitSignIn } = handlers;
 
     const [value, setValue] = useState({
         email: '',
@@ -63,7 +63,7 @@ const page = () => {
             <div className='relative bg-black/70 w-full h-full flex justify-center items-center '>
                 <div className='relative md:w-[500px] w-full bg-white duration-500  shadow-lg hover:shadow-blue-600 p-10 rounded-lg'>
                     <h2 className='font-bold text-5xl text-center border-b-4 border-gray-700 pb-10 '>Login</h2>
-                    <form onSubmit={handleSubmit} action="" className=' mt-5 flex justify-center flex-col relative'>
+                    <form onSubmit={onSubmitSignIn} action="" className=' mt-5 flex justify-center flex-col relative'>
                         <div className='mb-5 flex gap-2 flex-col'>
                             <label htmlFor="Useremail" className='flex items-center gap-2'><MdOutgoingMail size={30} />  Useremail</label>
                             <input
@@ -115,6 +115,7 @@ const page = () => {
                             GithHub
                         </button>
                     </div>
+                    <h2 className='mt-10 text-center '>Create a new ? <Link href='/SIGNUP' className='underline text-blue-800'>SignUp here..</Link></h2>
                 </div>
             </div>
         </div>

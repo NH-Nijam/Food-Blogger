@@ -3,9 +3,10 @@ import React, { createContext, useEffect, useState } from 'react';
 import Navbar from '../component/Navbar';
 import Footer from '../component/Footer';
 import Scroll from '../component/Scroll';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, FacebookAuthProvider, GithubAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, FacebookAuthProvider, GithubAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import app from '../Firebase/firebase.init';
 import Swal from 'sweetalert2'
+
 
 export const allDatacontext = createContext()
 export const foodContext = createContext()
@@ -69,9 +70,9 @@ const Layout = ({ children }) => {
                     title: "Your Google SignIn Successfull",
                     showConfirmButton: false,
                     timer: 5000
-                  });
+                });
                 window.location.href = '/'
-                
+
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -94,7 +95,7 @@ const Layout = ({ children }) => {
                     title: "Your Facebook SignIn Successfull",
                     showConfirmButton: false,
                     timer: 5000
-                  });
+                });
                 window.location.href = '/'
             })
             .catch((error) => {
@@ -118,7 +119,7 @@ const Layout = ({ children }) => {
                     title: "Your Github SignIn Successfull",
                     showConfirmButton: false,
                     timer: 5000
-                  });
+                });
                 window.location.href = '/'
 
             })
@@ -128,6 +129,56 @@ const Layout = ({ children }) => {
             })
     }
     // sign in Github auth end
+
+
+    // Email and Password Sign Up start 
+    const onSubmitSignUp = (e) => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(result =>{
+            const user = result.user;
+                localStorage.setItem('profile', JSON.stringify(user))
+                setSignIn(user)
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your Github SignIn Successfull",
+                    showConfirmButton: false,
+                    timer: 5000
+                });
+                window.location.href = '/'
+        })
+    }
+    // Email and Password Sign Up end 
+    
+    // Email and Password SignIn start 
+    const onSubmitSignIn = (e) => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        signInWithEmailAndPassword(auth, email, password)
+        .then(result =>{
+            const user = result.user;
+                localStorage.setItem('profile', JSON.stringify(user))
+                setSignIn(user)
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your Github SignIn Successfull",
+                    showConfirmButton: false,
+                    timer: 5000
+                });
+                window.location.href = '/'
+        })
+    }
+    // Email and Password SignIn end 
+
+
+
+
+
 
     // signOut start
     const googleSignOutHandler = () => {
@@ -141,7 +192,7 @@ const Layout = ({ children }) => {
                     title: "Your SignOut Successfull",
                     showConfirmButton: false,
                     timer: 5000
-                  });
+                });
                 window.location.href = '/SIGNIN'
             }).catch((error) => {
                 // An error happened.
@@ -152,14 +203,13 @@ const Layout = ({ children }) => {
 
 
 
-
     return (
         <div >
             <allDatacontext.Provider value={[alldata, setAlldata]}>
                 <foodContext.Provider value={[food, setFood]}>
                     <drinkContext.Provider value={[drink, setDrink]}>
                         <restureantContext.Provider value={[resturents, setResturents]}>
-                            <handlerContext.Provider value={{ handler, googleSigninHandler, googleSignOutHandler, FacebookSigninHandler, GithubSigninHandler }}>
+                            <handlerContext.Provider value={{ handler, googleSigninHandler, googleSignOutHandler, FacebookSigninHandler, GithubSigninHandler, onSubmitSignUp, onSubmitSignIn }}>
                                 <DetailsContext.Provider value={[details, setDetails]}>
                                     <signInContext.Provider value={[signIn, setSignIn]}>
                                         <Navbar />

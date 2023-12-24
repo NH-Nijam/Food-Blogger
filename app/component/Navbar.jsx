@@ -41,7 +41,7 @@ const Navbar = () => {
         }
     ]
     return (
-        <header className='bg-[#F3F6F3] px-2 lg:px-0 z-10 border-b sticky top-0'>
+        <header className='bg-[#F3F6F3] opacity-90 px-2 lg:px-0 z-10 border-b sticky top-0 sticky-green-600'>
             <nav
 
                 className='h-20 container flex items-center justify-between  '>
@@ -67,7 +67,7 @@ const Navbar = () => {
                         ))
                     }
                     {
-                        signIn?.displayName ?
+                        signIn?.uid?
                             <Tooltip title={<div className='p-5 '>
                                 <h1 className='text-center underline text-2xl'>Account</h1>
                                 <div className='mt-5'>
@@ -76,10 +76,13 @@ const Navbar = () => {
                                     <button onClick={googleSignOutHandler} className='hover:underline mt-5 bg-[#512DA9] px-3 py-1'>Sign Out</button>
                                 </div>
                             </div>}>
-                                <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
+                                {
+                                    signIn?.photoURL? <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
                                     <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
                                         className='w-full' />
-                                </div>
+                                </div>:<h2 className='font-semibold '>My Profile &#11206;</h2>
+                                }
+                                
                             </Tooltip>
 
                             :
