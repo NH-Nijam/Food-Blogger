@@ -42,17 +42,16 @@ const Navbar = () => {
     ]
     return (
         <header className='bg-[#F3F6F3] opacity-90 px-2 lg:px-0 z-10 border-b sticky top-0 sticky-green-600'>
-            <nav
+            <nav className='h-20 container flex items-center justify-between  '>
 
-                className='h-20 container flex items-center justify-between  '>
                 {/* lgo start */}
                 <div>
                     <Link href='/'>
                         <Image src={logo} alt='This is a Logo' width={50} />
-                        <h2 className='header'>Food & Drink Blogger</h2>
                     </Link>
                 </div>
                 {/* lgo end */}
+
                 {/* large device menu start */}
                 <div className='lg:flex lg:gap-10 hidden lg:items-center'>
                     {
@@ -67,8 +66,8 @@ const Navbar = () => {
                         ))
                     }
                     {
-                        signIn?.uid?
-                            <Tooltip title={<div className='p-5 '>
+                        signIn?.uid ?
+                            <Tooltip trigger={['click']} title={<div className='p-5 cursor-pointer'>
                                 <h1 className='text-center underline text-2xl'>Account</h1>
                                 <div className='mt-5'>
                                     <h2> {signIn?.displayName}</h2>
@@ -77,12 +76,12 @@ const Navbar = () => {
                                 </div>
                             </div>}>
                                 {
-                                    signIn?.photoURL? <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
-                                    <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
-                                        className='w-full' />
-                                </div>:<h2 className='font-semibold '>My Profile &#11206;</h2>
+                                    signIn?.photoURL ? <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
+                                        <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
+                                            className='w-full' />
+                                    </div> : <h2 className='font-semibold cursor-pointer '>My Profile <span className='nav'>&#11206;</span></h2>
                                 }
-                                
+
                             </Tooltip>
 
                             :
@@ -94,6 +93,7 @@ const Navbar = () => {
                     }
                 </div>
                 {/*large device menu end */}
+
                 {/* small device menu start */}
                 <div onClick={handler} className='lg:hidden cursor-pointer'>
                     <FaBars size={30} />
@@ -104,6 +104,24 @@ const Navbar = () => {
                         <div onClick={handler} className='cursor-pointer'>
                             <IoCloseSharp size={40} />
                             <div className='flex flex-col gap-5 text-center '>
+                                {
+                                    signIn?.uid ? <Tooltip  className='mb-10' title={<div className='p-5 cursor-pointer lg:hidden '>
+                                        <h1 className='text-center underline text-2xl'>Account</h1>
+                                        <div className='mt-5'>
+                                            <h2> {signIn?.displayName}</h2>
+                                            <h2> {signIn?.email}</h2>
+                                            <button onClick={googleSignOutHandler} className='hover:underline mt-5 bg-[#512DA9] px-3 py-1'>Sign Out</button>
+                                        </div>
+                                    </div>}>
+                                        {
+                                            signIn?.photoURL ? <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
+                                                <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
+                                                    className='w-full' />
+                                            </div> : <h2 className='font-semibold cursor-pointer '>My Profile <span className='nav'>&#11206;</span></h2>
+                                        }
+
+                                    </Tooltip> : ''
+                                }
                                 {
                                     navLink.map(({ link, name }) => (
                                         <Link
@@ -116,27 +134,10 @@ const Navbar = () => {
                                     ))
                                 }
                                 {
-                                    signIn?.displayName ?
-                                        <Tooltip title={<div className='p-5 '>
-                                            <h1 className='text-center underline text-2xl'>Account</h1>
-                                            <div className='mt-5'>
-                                                <h2> {signIn?.displayName}</h2>
-                                                <h2> {signIn?.email}</h2>
-                                                <button onClick={googleSignOutHandler} className='hover:underline mt-5 bg-[#512DA9] px-3 py-1'>Sign Out</button>
-                                            </div>
-                                        </div>}>
-                                            <div className='border rounded-full mx-auto mt-10 w-[45px] h-[45px] overflow-hidden'>
-                                                <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
-                                                    className='w-full' />
-                                            </div>
-                                        </Tooltip>
-
-                                        :
-                                        <div className='flex flex-col gap-5 '>
-                                            <Link className={`${pathName === '/SIGNIN' ? ' text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 ' : ''} nav  duration-500 2xl:text-base`} href='/SIGNIN' >SIGN IN</Link>
-                                            <Link className={`${pathName === '/SIGNUP' ? ' text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 ' : ''} nav  duration-500 2xl:text-base`} href='/SIGNUP'>SIGN UP</Link>
-                                        </div>
-
+                                    signIn?.uid ? '' : <div className='flex flex-col gap-5 '>
+                                        <Link className={`${pathName === '/SIGNIN' ? ' text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 ' : ''} nav  duration-500 2xl:text-base`} href='/SIGNIN' >SIGN IN</Link>
+                                        <Link className={`${pathName === '/SIGNUP' ? ' text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 ' : ''} nav  duration-500 2xl:text-base`} href='/SIGNUP'>SIGN UP</Link>
+                                    </div>
                                 }
                             </div>
                         </div>

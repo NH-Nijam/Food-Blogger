@@ -150,6 +150,9 @@ const Layout = ({ children }) => {
                 });
                 window.location.href = '/'
         })
+        .catch(error=>{
+            console.error(error.message)
+        })
     }
     // Email and Password Sign Up end 
     
