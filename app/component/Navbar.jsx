@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { FaBars } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
+import { TiArrowSortedDown } from "react-icons/ti";
 import { motion } from 'framer-motion'
 import { handlerContext, signInContext } from '../Layout/Layout';
 import { Tooltip } from 'antd';
@@ -79,7 +80,7 @@ const Navbar = () => {
                                     signIn?.photoURL ? <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
                                         <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
                                             className='w-full' />
-                                    </div> : <h2 className='font-semibold cursor-pointer '>My Profile <span className='nav'>&#11206;</span></h2>
+                                    </div> : <h2 className='font-semibold cursor-pointer flex items-center'>My Profile <span ><TiArrowSortedDown size={20}/></span></h2>
                                 }
 
                             </Tooltip>
@@ -95,7 +96,7 @@ const Navbar = () => {
                 {/*large device menu end */}
 
                 {/* small device menu start */}
-                <div className='flex gap-8'>
+                <div className='flex gap-8 lg:hidden'>
                     <div>{
                         signIn?.uid ? <Tooltip trigger={'click'} className='' title={<div className='p-5 cursor-pointer lg:hidden '>
                             <h1 className='text-center underline text-2xl'>Account</h1>
@@ -109,7 +110,7 @@ const Navbar = () => {
                                 signIn?.photoURL ? <div className='border rounded-full w-[45px] h-[45px] overflow-hidden'>
                                     <Image src={signIn.photoURL} width={500} height={500} alt='profile image'
                                         className='w-full' />
-                                </div> : <h2 className='font-semibold cursor-pointer '>My Profile <span className='nav'>&#11206;</span></h2>
+                                </div> : <h2 className='font-semibold cursor-pointer flex items-center'>My Profile <span ><TiArrowSortedDown size={20}/></span></h2>
                             }
 
                         </Tooltip> : ''
